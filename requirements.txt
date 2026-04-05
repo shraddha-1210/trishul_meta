@@ -1,0 +1,13 @@
+uvicorn
+fastapi
+pydantic
+websockets
+dotenv
+neo4j
+faker
+numpy
+torch
+stable-baselines3
+gymnasium
+networkx
+reportlab
