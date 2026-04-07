@@ -1,0 +1,152 @@
+.risk-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.risk-panel h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.loading {
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 20px;
+}
+
+.paths-list,
+.edges-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.path-item,
+.edge-item {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.path-item:hover,
+.edge-item:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateX(4px);
+}
+
+.path-header,
+.edge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.path-number {
+  font-weight: bold;
+  color: #4ecdc4;
+}
+
+.risk-badge,
+.risk-score {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.risk-badge.critical,
+.risk-score.critical {
+  background: #ff6b6b;
+  color: #fff;
+}
+
+.risk-badge.high,
+.risk-score.high {
+  background: #ffa500;
+  color: #fff;
+}
+
+.risk-badge.medium,
+.risk-score.medium {
+  background: #ffe66d;
+  color: #333;
+}
+
+.risk-badge.low,
+.risk-score.low {
+  background: #4ecdc4;
+  color: #fff;
+}
+
+.path-route {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.path-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.edge-route {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.edge-type {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 6px;
+}
+
+.edge-recommendation {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.blast-radius {
+  font-size: 11px;
+  color: #ff6b6b;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.loading-spinner .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #4ecdc4;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.no-data {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 40px 20px;
+}

@@ -2,9 +2,34 @@
 venv/
 env/
 
-
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Environment variables - CONTAINS PASSWORDS!
+.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# RL checkpoints (large files)
+checkpoints/
+
+# Reports
+*.pdf
+
+# Documentation folder (optional - remove this line if you want to commit docs)
+docs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
