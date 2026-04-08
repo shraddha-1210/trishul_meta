@@ -2,7 +2,7 @@ uvicorn
 fastapi
 pydantic
 websockets
-dotenv
+python-dotenv
 neo4j
 faker
 numpy
@@ -11,3 +11,4 @@ stable-baselines3
 gymnasium
 networkx
 reportlab
+requests

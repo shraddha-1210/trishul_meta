@@ -1,7 +1,7 @@
 import React from 'react'
 import './Header.css'
 
-function Header({ onReseed, backendStatus }) {
+function Header({ onReseed, backendStatus, onExport }) {
   const getStatusColor = () => {
     switch(backendStatus) {
       case 'connected': return '#4ecdc4'
@@ -35,6 +35,9 @@ function Header({ onReseed, backendStatus }) {
             <span className="status-dot" style={{background: getStatusColor()}}></span>
             <span className="status-text">{getStatusText()}</span>
           </div>
+          <button className="export-btn" onClick={onExport}>
+            📥 Export CSV
+          </button>
           <button className="reseed-btn" onClick={onReseed}>
             🔄 Reseed Graph
           </button>

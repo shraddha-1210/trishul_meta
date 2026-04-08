@@ -1,0 +1,45 @@
+# Python
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Database
+*.db
+*.sqlite
+
+# Checkpoints (will be mounted as volume)
+checkpoints/
+
+# Reports
+*.pdf
+
+# Environment (will be set in docker-compose)
+.env

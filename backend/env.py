@@ -18,11 +18,11 @@ class TrishulEnv(gym.Env):
     Blue actions : revoke edges 0-14, add mfa(15), no-op(16) = 17 total
     """
 
-    MAX_NODES = 20
-    MAX_EDGES = 30
-    NODE_FEATURES = 5   # [trust_score, anomaly_score, is_crown_jewel, is_compromised, has_mfa]
-    EDGE_FEATURES = 3   # [anomaly_score, is_revoked, is_gated]
-    MAX_STEPS = 50
+    MAX_NODES = 150  # Increased for denser graph
+    MAX_EDGES = 200  # Increased for more connections
+    NODE_FEATURES = 5
+    EDGE_FEATURES = 3
+    MAX_STEPS = 100  # More steps for complex paths
 
     def __init__(self, agent_type="red"):
         super().__init__()

@@ -1,0 +1,82 @@
+TRISHUL PROJECT STRUCTURE
+========================
+
+ROOT FILES:
+-----------
+README.md                    - Main documentation (START HERE!)
+.env                        - Database credentials (neo4j/trishul123)
+.gitignore                  - Git ignore rules
+requirements.txt            - Python dependencies
+
+SETUP & RUN SCRIPTS:
+-------------------
+INSTALL_AND_RUN.bat         - First time setup (RUN THIS FIRST!)
+START.bat                   - Quick start backend (after install)
+start_backend.bat           - Start backend server
+start_frontend.bat          - Start frontend server
+diagnose.bat                - Check system health
+FIX_ALL.bat                 - Alternative comprehensive fix
+create_dummy_checkpoints.py - Create AI agent checkpoints
+
+DOCKER (OPTIONAL):
+-----------------
+docker-compose.yml          - Docker compose configuration
+Dockerfile.backend          - Backend container
+Dockerfile.frontend         - Frontend container
+.dockerignore              - Docker ignore rules
+
+BACKEND:
+--------
+backend/
+  ├── main.py              - FastAPI server & endpoints
+  ├── env.py               - RL environment (gym)
+  ├── graph_seeder.py      - Database seeding (113 nodes)
+  ├── database.py          - SQLite history tracking
+  ├── risk_scorer.py       - ML risk analysis
+  ├── report_generator.py  - PDF reports
+  └── train.py             - RL agent training
+
+FRONTEND:
+---------
+frontend/
+  ├── src/
+  │   ├── App.jsx          - Main React app
+  │   ├── components/
+  │   │   ├── Dashboard.jsx       - Metrics dashboard
+  │   │   ├── GraphView.jsx       - Cytoscape graph
+  │   │   ├── RiskPanel.jsx       - Risk analysis
+  │   │   ├── SimulationPanel.jsx - Attack logs
+  │   │   ├── SearchBar.jsx       - Node search
+  │   │   ├── Header.jsx          - Top bar
+  │   │   └── AttackLegend.jsx    - Legend overlay
+  │   └── *.css            - Styling
+  ├── package.json         - NPM dependencies
+  └── vite.config.js       - Vite configuration
+
+GENERATED (NOT IN GIT):
+----------------------
+venv/                      - Python virtual environment
+checkpoints/               - Trained AI agents
+  ├── red_final.zip       - Red team (attacker)
+  └── blue_final.zip      - Blue team (defender)
+trishul_history.db        - Simulation history
+frontend/node_modules/    - NPM packages
+frontend/dist/            - Built frontend
+
+QUICK START:
+-----------
+1. Run: INSTALL_AND_RUN.bat
+2. Open new terminal: start_frontend.bat
+3. Browser: http://localhost:3003
+4. Click "Start Attack" button
+
+PORTS:
+------
+Backend:  http://localhost:8001
+Frontend: http://localhost:3003
+Neo4j:    http://localhost:7474 (browser UI)
+          bolt://localhost:7687 (database)
+
+CREDENTIALS:
+-----------
+Neo4j: neo4j / trishul123

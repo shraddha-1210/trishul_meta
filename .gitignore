@@ -1,8 +1,6 @@
-# Python virtual environment — NEVER commit this
+# Python
 venv/
 env/
-
-# Python cache
 __pycache__/
 *.pyc
 *.pyo
@@ -15,14 +13,14 @@ __pycache__/
 frontend/node_modules/
 frontend/dist/
 
-# RL checkpoints (large files)
+# RL checkpoints (large files - regenerate with create_dummy_checkpoints.py)
 checkpoints/
+
+# Database (regenerate with backend/graph_seeder.py)
+*.db
 
 # Reports
 *.pdf
-
-# Documentation folder (optional - remove this line if you want to commit docs)
-docs/
 
 # OS files
 .DS_Store
@@ -33,3 +31,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Logs
+*.log

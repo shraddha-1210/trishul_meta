@@ -8,9 +8,10 @@ CHECKPOINT_DIR = "checkpoints"
 os.makedirs(CHECKPOINT_DIR, exist_ok=True)
 
 CURRICULUM = [
-    {"timesteps" : 5_000, "label":"stage1_warmup"},
-    {"timesteps":15_000, "label" : "stage2_medium"},
-    {"timesteps":30_000, "label":"stage3_full"}
+    {"timesteps": 10_000, "label": "stage1_warmup"},
+    {"timesteps": 30_000, "label": "stage2_medium"},
+    {"timesteps": 60_000, "label": "stage3_full"},
+    {"timesteps": 50_000, "label": "stage4_advanced"}
 ]
 
 def make_red_env():
