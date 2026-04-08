@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { BarChart2, Zap, ShieldOff, ShieldCheck, TrendingUp, GitBranch, Target, Layers } from 'lucide-react'
 import './Dashboard.css'
 
 function Dashboard() {
@@ -7,75 +8,68 @@ function Dashboard() {
 
   useEffect(() => {
     loadDashboard()
-    const interval = setInterval(loadDashboard, 30000) // Refresh every 30s
+    const interval = setInterval(loadDashboard, 30000)
     return () => clearInterval(interval)
   }, [])
 
   const loadDashboard = async () => {
     try {
-      const response = await fetch('http://localhost:8001/api/dashboard')
-      const data = await response.json()
-      setStats(data)
+      const res = await fetch('http://localhost:8001/api/dashboard')
+      setStats(await res.json())
       setLoading(false)
-    } catch (error) {
-      console.error('Failed to load dashboard:', error)
+    } catch {
       setLoading(false)
     }
   }
 
-  if (loading) {
-    return <div className="dashboard loading">Loading dashboard...</div>
-  }
-
-  if (!stats || stats.error) {
-    return <div className="dashboard error">Failed to load dashboard</div>
-  }
+  if (loading) return <div className="dashboard loading">Loading…</div>
+  if (!stats || stats.error) return <div className="dashboard error">Failed to load dashboard</div>
 
   return (
     <div className="dashboard">
-      <h2>📊 Dashboard</h2>
-      
+      <div className="panel-header">
+        <BarChart2 size={14} className="panel-header-icon" />
+        <span className="panel-title">Overview</span>
+      </div>
+
       <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-value">{stats.total_simulations || 0}</div>
-          <div className="stat-label">Total Simulations</div>
+        <div className="stat-card info">
+          <div className="stat-value">{stats.total_simulations ?? 0}</div>
+          <div className="stat-label">Simulations</div>
         </div>
-        
         <div className="stat-card danger">
-          <div className="stat-value">{stats.breaches || 0}</div>
+          <div className="stat-value">{stats.breaches ?? 0}</div>
           <div className="stat-label">Breaches</div>
         </div>
-        
         <div className="stat-card success">
-          <div className="stat-value">{stats.blocked || 0}</div>
+          <div className="stat-value">{stats.blocked ?? 0}</div>
           <div className="stat-label">Blocked</div>
         </div>
-        
-        <div className="stat-card">
-          <div className="stat-value">{stats.success_rate?.toFixed(1) || 0}%</div>
-          <div className="stat-label">Attack Success Rate</div>
+        <div className="stat-card warning">
+          <div className="stat-value">{stats.success_rate?.toFixed(1) ?? 0}%</div>
+          <div className="stat-label">Attack Rate</div>
         </div>
       </div>
 
       {stats.current_graph && (
         <div className="graph-stats">
-          <h3>Current Graph</h3>
+          <div className="section-label">Current Graph</div>
           <div className="stats-row">
-            <span>Nodes: {stats.current_graph.nodes}</span>
-            <span>Edges: {stats.current_graph.edges}</span>
-            <span>Entry Points: {stats.current_graph.entry_points}</span>
-            <span>Crown Jewels: {stats.current_graph.crown_jewels}</span>
+            <span><Layers size={11} /> {stats.current_graph.nodes} nodes</span>
+            <span><GitBranch size={11} /> {stats.current_graph.edges} edges</span>
+            <span><Zap size={11} /> {stats.current_graph.entry_points} entry</span>
+            <span><Target size={11} /> {stats.current_graph.crown_jewels} jewels</span>
           </div>
         </div>
       )}
 
-      {stats.top_targets && stats.top_targets.length > 0 && (
+      {stats.top_targets?.length > 0 && (
         <div className="top-targets">
-          <h3>Most Targeted Services</h3>
-          {stats.top_targets.map((target, idx) => (
-            <div key={idx} className="target-item">
-              <span className="target-name">{target.name}</span>
-              <span className="target-count">{target.count} times</span>
+          <div className="section-label">Most Targeted</div>
+          {stats.top_targets.map((t, i) => (
+            <div key={i} className="target-item">
+              <span className="target-name">{t.name}</span>
+              <span className="target-count">{t.count}×</span>
             </div>
           ))}
         </div>

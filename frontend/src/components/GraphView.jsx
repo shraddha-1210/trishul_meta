@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cola from 'cytoscape-cola'
 import AttackLegend from './AttackLegend'
+import { Network } from 'lucide-react'
 import './GraphView.css'
 
 cytoscape.use(cola)
@@ -202,7 +203,10 @@ function GraphView({ data, loading, selectedNode, onNodeClick }) {
   return (
     <div className="graph-view">
       <div className="graph-header">
-        <h2>Supply Chain Graph</h2>
+        <div className="graph-title-row">
+          <Network size={14} style={{ color: 'var(--text-muted)' }} />
+          <span className="graph-title">Supply Chain Graph</span>
+        </div>
         <div className="legend">
           <div className="legend-item">
             <span className="legend-dot" style={{background: '#ff6b6b'}}></span>

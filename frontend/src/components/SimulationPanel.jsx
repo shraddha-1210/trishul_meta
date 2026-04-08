@@ -1,50 +1,48 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Play, Loader2, ShieldCheck, ShieldOff, Terminal } from 'lucide-react'
 import './SimulationPanel.css'
 
 function SimulationPanel({ state, onStart, disabled }) {
   const logsEndRef = useRef(null)
-  const [stepCount, setStepCount] = React.useState(0)
+  const [stepCount, setStepCount] = useState(0)
 
   useEffect(() => {
     logsEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    
-    // Count steps from logs
-    const steps = state.logs.filter(log => log.includes('Step ')).length
-    setStepCount(steps)
+    setStepCount(state.logs.filter(l => l.includes('Step ')).length)
   }, [state.logs])
-
-  const handleClick = () => {
-    console.log('Button clicked! Disabled:', disabled, 'Running:', state.running)
-    if (!disabled && !state.running) {
-      onStart()
-    }
-  }
 
   return (
     <div className="simulation-panel">
       <div className="simulation-header">
-        <div>
-          <h2>🤖 Live Simulation</h2>
+        <div className="sim-title-row">
+          <div className="panel-header" style={{ marginBottom: 0, paddingBottom: 0, border: 'none' }}>
+            <Terminal size={14} className="panel-header-icon" />
+            <span className="panel-title">Live Simulation</span>
+          </div>
           {state.running && (
             <div className="step-counter">
-              Step {stepCount} | <span className="pulse">●</span> Running
+              <span className="live-dot" />
+              Step {stepCount} · Running
             </div>
           )}
         </div>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <span style={{ 
-            fontSize: '11px', 
-            color: disabled ? '#ff6b6b' : '#4ecdc4',
-            opacity: 0.7
-          }}>
-            {disabled ? '⚠️ Disabled' : '✅ Ready'}
-          </span>
-          <button 
-            className="start-btn" 
-            onClick={handleClick}
-            disabled={disabled}
+
+        <div className="sim-controls">
+          <div className={`sim-status-badge ${disabled ? 'error' : 'ready'}`}>
+            {disabled
+              ? <><ShieldOff size={10} /> Disabled</>
+              : <><ShieldCheck size={10} /> Ready</>
+            }
+          </div>
+          <button
+            className="start-btn"
+            onClick={() => !disabled && !state.running && onStart()}
+            disabled={disabled || state.running}
           >
-            {state.running ? '⏳ Running...' : '▶️ Start Attack'}
+            {state.running
+              ? <><Loader2 size={12} style={{ animation: 'spin 1s linear infinite' }} /> Running…</>
+              : <><Play size={12} /> Start Attack</>
+            }
           </button>
         </div>
       </div>
@@ -58,25 +56,13 @@ function SimulationPanel({ state, onStart, disabled }) {
         ) : (
           <>
             {state.logs.map((log, idx) => {
-              // Parse log to add styling
-              const isStepLog = log.includes('Step ')
-              const isSuccess = log.includes('crown_jewel_reached') || log.includes('Breached')
-              const isBlocked = log.includes('blocked') || log.includes('Defended')
-              const isStart = log.includes('initiated')
-              const isEnd = log.includes('ended')
-              
-              let className = 'log-entry'
-              if (isStepLog) className += ' log-step'
-              if (isSuccess) className += ' log-success'
-              if (isBlocked) className += ' log-blocked'
-              if (isStart) className += ' log-start'
-              if (isEnd) className += ' log-end'
-              
-              return (
-                <div key={idx} className={className}>
-                  {log}
-                </div>
-              )
+              let cls = 'log-entry'
+              if (log.includes('Step '))                                          cls += ' log-step'
+              if (log.includes('crown_jewel_reached') || log.includes('Breached')) cls += ' log-success'
+              if (log.includes('blocked') || log.includes('Defended'))            cls += ' log-blocked'
+              if (log.includes('initiated'))                                       cls += ' log-start'
+              if (log.includes('ended') || log.includes('COMPLETE'))              cls += ' log-end'
+              return <div key={idx} className={cls}>{log}</div>
             })}
             <div ref={logsEndRef} />
           </>
@@ -85,17 +71,10 @@ function SimulationPanel({ state, onStart, disabled }) {
 
       {state.result && (
         <div className={`simulation-result ${state.result}`}>
-          {state.result === 'crown_jewel_reached' ? (
-            <>
-              <span className="result-icon">🚨</span>
-              <span>Red Team Breached Crown Jewel!</span>
-            </>
-          ) : (
-            <>
-              <span className="result-icon">🛡️</span>
-              <span>Blue Team Successfully Defended!</span>
-            </>
-          )}
+          {state.result === 'crown_jewel_reached'
+            ? <><ShieldOff size={14} /> Red Team Breached Crown Jewel</>
+            : <><ShieldCheck size={14} /> Blue Team Successfully Defended</>
+          }
         </div>
       )}
     </div>

@@ -5,6 +5,7 @@ import SimulationPanel from './components/SimulationPanel'
 import Dashboard from './components/Dashboard'
 import SearchBar from './components/SearchBar'
 import Header from './components/Header'
+import { AlertTriangle } from 'lucide-react'
 import './App.css'
 
 function App() {
@@ -258,28 +259,17 @@ function App() {
         onExport={exportToCSV}
       />
       
-      {/* Debug info */}
-      <div style={{
-        position: 'fixed',
-        top: '70px',
-        right: '10px',
-        background: 'rgba(0,0,0,0.8)',
-        color: '#fff',
-        padding: '10px',
-        borderRadius: '8px',
-        fontSize: '11px',
-        zIndex: 1000,
-        fontFamily: 'monospace'
-      }}>
-        <div>Backend: <span style={{color: backendStatus === 'connected' ? '#4ecdc4' : '#ff6b6b'}}>{backendStatus}</span></div>
-        <div>Simulation: {simulationState.running ? '🏃 Running' : '⏸️ Idle'}</div>
+      {/* Debug overlay */}
+      <div className="debug-overlay">
+        <div>Backend: <span style={{color: backendStatus === 'connected' ? 'var(--green)' : '#ef4444'}}>{backendStatus}</span></div>
+        <div>Simulation: {simulationState.running ? 'Running' : 'Idle'}</div>
         <div>Logs: {simulationState.logs.length}</div>
-        <div>WS: {ws ? (ws.readyState === 1 ? '✅ Open' : '❌ Closed') : '⚠️ None'}</div>
+        <div>WS: {ws ? (ws.readyState === 1 ? 'Open' : 'Closed') : 'None'}</div>
       </div>
       
       {error && (
         <div className="error-banner">
-          <span className="error-icon">⚠️</span>
+          <AlertTriangle size={14} />
           <span>{error}</span>
         </div>
       )}
@@ -308,7 +298,7 @@ function App() {
       {selectedNode && (
         <div className="node-details-modal" onClick={() => setSelectedNode(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={() => setSelectedNode(null)}>×</button>
+            <button className="close-btn" onClick={() => setSelectedNode(null)}>✕</button>
             <h2>{selectedNode.node?.name}</h2>
             <div className="node-info">
               <p><strong>Type:</strong> {selectedNode.node?.type}</p>
